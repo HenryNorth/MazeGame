@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
+    <script src="script.js"></script>
+    <title>Maze Game</title>
+  </head>
+  <body onload="onLoad();">
+    <h1>Maze Game</h1>
+    <canvas id="canvas"></canvas>
+    <div id="settings">
+      <table>
+        <tbody>
+          <tr>
+            <td><label for="cols">Columns:</label></td>
+            <td><input id="cols" type="number" size="5" value="20" /></td>
+          </tr><tr>
+            <td><label for="rows">Rows:</label></td>
+            <td><input id="rows" type="number" size="5" value="20" /></td>
+          </tr><tr>
+            <td>&nbsp;</td>
+            <td><input id="generate" type="button" value="Generate" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
