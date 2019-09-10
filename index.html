@@ -7,24 +7,28 @@
     <script src="script.js"></script>
     <title>Maze Game</title>
   </head>
+
   <body onload="onLoad();">
-    <h1>Maze Game</h1>
+    <h1 class="titles">Maze Game</h1>
+    <input id="startButton" type="button" value="Start" />
+    <input id="stopButton" type="button" value="Stop" />
+    <div id="timer">0 Seconds</div>
     <canvas id="canvas"></canvas>
     <div id="settings">
       <table>
+        <h2 class="titles">Maze Size</h2>
         <tbody>
           <tr>
-            <td><label for="cols">Columns:</label></td>
-            <td><input id="cols" type="number" size="5" value="20" /></td>
-          </tr><tr>
-            <td><label for="rows">Rows:</label></td>
-            <td><input id="rows" type="number" size="5" value="20" /></td>
-          </tr><tr>
+            <td><label for="mazeSize">Size:</label></td>
+            <td><input id="mazeSize" type="number" size="5" value="20" /></td>
+          </tr>
+          <tr>
             <td>&nbsp;</td>
             <td><input id="generate" type="button" value="Generate" /></td>
           </tr>
         </tbody>
       </table>
+      <div id="minMaxSizeWarning"></div>
     </div>
   </body>
 </html>

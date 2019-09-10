@@ -1,23 +1,25 @@
 * {
+  font-size: 16px;
   text-align: center;
+  font-family: Arial, sans-serif;
 }
 
 html {
   background: #89cff0;
 }
 
-h1 {
-  text-align: center;
-  font-size: 80px;
-  line-height: 1;
-  margin: 30px;
-  font-family: 'Amatic SC', cursive;
+canvas {
+  background-color: white;
 }
 
-body {
-  padding: 0;
-  margin:0;
-  font-family: Arial, sans-serif;
+h1 {
+  font-size: 80px;
+  margin: 30px 30px 15px;
+}
+
+h2 {
+  font-size: 40px;
+  margin: 10px;
 }
 
 table, tbody, tr {
@@ -28,8 +30,24 @@ input[type="number"] {
   width: 50px;
 }
 
+.titles {
+  text-align: center;
+  line-height: 1;
+  font-family: 'Amatic SC', cursive;
+}
+
+#timer {
+  margin: 12px 0;
+  font-size: 20px;
+}
+
 #settings {
   position: absolute;
   left: 25px;
-  top: 25px;
+  top: 5px;
+}
+
+#minMaxSizeWarning {
+  color: red;
+  margin: 6px 0;
 }
