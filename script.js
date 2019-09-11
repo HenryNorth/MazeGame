@@ -52,7 +52,7 @@ class Maze {
     canvas.width = mazeWidth;
     canvas.style.height = mazeHeight;
     canvas.style.width = mazeWidth;
-
+    
     playerIcon.column = 0;
     playerIcon.row = 0;
 
@@ -188,6 +188,24 @@ class Maze {
     context.fillStyle = this.playerColor;
     context.fillRect((playerIcon.column * this.cellSize) + 2, (playerIcon.row * this.cellSize) + 2, this.cellSize - 4, this.cellSize - 4);
   }
+
+  checkIfCompleted = () => {
+    if ((playerIcon.column === (this.columns - 1)) && (playerIcon.row === (this.rows - 1))) {
+      clearInterval(startTimer);
+      this.isGameStarted = false;
+      console.log('well done');
+    }
+    else {
+      return false;
+    }
+  }
+}
+
+playerIconToStart = () => {
+  playerIcon.column = 0;
+  playerIcon.row = 0;
+
+  maze.redraw();
 }
 
 onGenerateMazeClick = () => {
@@ -204,8 +222,8 @@ onGenerateMazeClick = () => {
   else {
     maze.columns = mazeSize;
     maze.rows = mazeSize;
-    minMaxSizeWarning.innerHTML = "";
     maze.generateMaze();
+    onResetButtonClick();
   }
 }
 
@@ -214,20 +232,22 @@ onStartButtonClick = () => {
 
   startTimer = setInterval(startTimerCount, 1000);
   document.getElementById("startButton").disabled = true;
-  document.getElementById("stopButton").disabled = false;
+  document.getElementById("resetButton").disabled = false;
 }
 
-onStopButtonClick = () => {
+onResetButtonClick = () => {
   maze.isGameStarted = false;
   maze.totalSeconds = 0;
+
+  playerIconToStart();
 
   clearInterval(startTimer);
   document.getElementById("timer").innerHTML = maze.totalSeconds + " Seconds";
   document.getElementById("startButton").disabled = false;
-  document.getElementById("stopButton").disabled = true;
+  document.getElementById("resetButton").disabled = true;
 }
 
-startTimerCount = (totalSeconds) => {
+startTimerCount = () => {
   maze.totalSeconds++;
 
   document.getElementById("timer").innerHTML = maze.totalSeconds + " Seconds";
@@ -239,21 +259,25 @@ onKeyDown = (event) => {
       case 37:
         if (!maze.cells[playerIcon.column][playerIcon.row].leftWall) {
           playerIcon.column = playerIcon.column - 1;
+          maze.checkIfCompleted();
         }
         break;
       case 39:
         if (!maze.cells[playerIcon.column][playerIcon.row].rightWall) {
           playerIcon.column = playerIcon.column + 1;
+          maze.checkIfCompleted();
         }
         break;
       case 38:
         if (!maze.cells[playerIcon.column][playerIcon.row].topWall) {
           playerIcon.row = playerIcon.row - 1;
+          maze.checkIfCompleted();
         }
         break;
       case 40:
         if (!maze.cells[playerIcon.column][playerIcon.row].bottomWall) {
           playerIcon.row = playerIcon.row + 1;
+          maze.checkIfCompleted();
         }
         break;
       default:
@@ -276,6 +300,6 @@ onLoad = () => {
   document.addEventListener("keydown", onKeyDown);
   document.getElementById("generate").addEventListener("click", onGenerateMazeClick);
   document.getElementById("startButton").addEventListener("click", onStartButtonClick);
-  document.getElementById("stopButton").addEventListener("click", onStopButtonClick);
-  document.getElementById("stopButton").disabled = true;
+  document.getElementById("resetButton").addEventListener("click", onResetButtonClick);
+  document.getElementById("resetButton").disabled = true;
 }
