@@ -14,7 +14,7 @@ canvas {
 
 h1 {
   font-size: 80px;
-  margin: 30px 30px 15px;
+  margin: 20px 30px 15px;
 }
 
 h2 {
@@ -29,6 +29,7 @@ input[type="number"] {
 .button {
   width: 95px;
   height: 40px;
+  margin: 5px;
   background: linear-gradient(to bottom, #4eb5e5 0%,#389ed5 100%);
   border: none;
   border-radius: 5px;
@@ -38,7 +39,7 @@ input[type="number"] {
   font-weight: 600;
   text-shadow: 1px 1px 1px rgba(0,0,0,.4);
   text-align: center;
-  box-shadow: 0px 5px rgba(0,0,0,.2);
+  box-shadow: 0px 6px rgba(0,0,0,.2);
   cursor: pointer;
 }
 
@@ -58,6 +59,7 @@ input[type="number"] {
   box-shadow: 0 4px #666;
   transform: translateY(3px);
   cursor: not-allowed;
+  bottom: 2px;
 }
 
 .titles {
@@ -66,9 +68,32 @@ input[type="number"] {
   font-family: 'Amatic SC', cursive;
 }
 
+.completeBanner {
+  display: flex;
+  margin: 16px auto;
+  width: 440px;
+  height: 38px;
+  justify-content: center;
+  align-items: center;
+  background: rgb(108, 235, 108);
+  box-shadow: 3px 5px rgba(0,0,0,0.2);
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
+
+.completeBanner span {
+  font-size: 18px;
+}
+
 #timer {
-  margin: 16px 0 10px;
-  font-size: 20px;
+  margin: 15px 0;
+  font-size: 18px;
+}
+
+.buttonContainer {
+  display: flex;
+  width: 210px;
+  margin: auto;
 }
 
 #settings {

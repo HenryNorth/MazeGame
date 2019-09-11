@@ -192,8 +192,12 @@ class Maze {
   checkIfCompleted = () => {
     if ((playerIcon.column === (this.columns - 1)) && (playerIcon.row === (this.rows - 1))) {
       clearInterval(startTimer);
+
       this.isGameStarted = false;
-      console.log('well done');
+
+      document.getElementById("completeBannerLabel").innerHTML = "You have completed the maze in " + this.totalSeconds + " Seconds";
+      document.getElementById("timerLabel").style.display = "flex";
+      document.getElementById("timer").style.display = "none";
     }
     else {
       return false;
@@ -222,6 +226,7 @@ onGenerateMazeClick = () => {
   else {
     maze.columns = mazeSize;
     maze.rows = mazeSize;
+    minMaxSizeWarning.innerHTML = "";
     maze.generateMaze();
     onResetButtonClick();
   }
@@ -245,6 +250,8 @@ onResetButtonClick = () => {
   document.getElementById("timer").innerHTML = maze.totalSeconds + " Seconds";
   document.getElementById("startButton").disabled = false;
   document.getElementById("resetButton").disabled = true;
+  document.getElementById("timerLabel").style.display = "none";
+  document.getElementById("timer").style.display = "block";
 }
 
 startTimerCount = () => {
@@ -302,4 +309,5 @@ onLoad = () => {
   document.getElementById("startButton").addEventListener("click", onStartButtonClick);
   document.getElementById("resetButton").addEventListener("click", onResetButtonClick);
   document.getElementById("resetButton").disabled = true;
+  document.getElementById("timerLabel").style.display = "none";
 }
