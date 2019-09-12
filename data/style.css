@@ -11,7 +11,7 @@ html {
 
 h1 {
   font-size: 80px;
-  margin: 20px 30px 15px;
+  margin: 12px 0 0 0;
 }
 
 h2 {
@@ -22,12 +22,13 @@ h2 {
 input[type="number"] {
   width: 50px;
   color: black;
+  margin-bottom: 5px;
 }
 
 .button {
   width: 95px;
-  height: 40px;
-  margin: 5px;
+  height: 35px;
+  margin: 0 5px;
   background: linear-gradient(to bottom, #4eb5e5 0%,#389ed5 100%);
   border: none;
   border-radius: 5px;
@@ -65,6 +66,10 @@ input[type="number"] {
   font-family: 'Amatic SC', cursive;
 }
 
+.subtitle {
+  margin: 10px 0;
+}
+
 .completeBanner {
   display: flex;
   margin: 16px auto;
@@ -83,7 +88,7 @@ input[type="number"] {
 }
 
 #timer {
-  margin: 15px 0;
+  margin: 10px 0;
   font-size: 22px;
 }
 
