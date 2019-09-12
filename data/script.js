@@ -4,6 +4,7 @@ let maze;
 let mazeHeight;
 let mazeWidth;
 let playerIcon;
+let startTimer;
 
 class PlayerIcon {
   constructor() {
@@ -316,6 +317,7 @@ onKeyDown = (event) => {
   }
 }
 
+// onLoad function to generate the inital maze and set initial values
 onLoad = () => {
   canvas = document.getElementById("canvas");
   context = canvas.getContext("2d");
