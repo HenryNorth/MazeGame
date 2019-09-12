@@ -2,14 +2,11 @@
   font-size: 16px;
   text-align: center;
   font-family: 'Open Sans', sans-serif;
+  color: white;
 }
 
 html {
   background: #89cff0;
-}
-
-canvas {
-  background-color: white;
 }
 
 h1 {
@@ -18,12 +15,13 @@ h1 {
 }
 
 h2 {
-  font-size: 40px;
+  font-size: 54px;
   margin: 10px;
 }
 
 input[type="number"] {
   width: 50px;
+  color: black;
 }
 
 .button {
@@ -35,7 +33,6 @@ input[type="number"] {
   border-radius: 5px;
   position: relative;
   border-bottom: 4px solid #2b8bc6;
-  color: #fbfbfb;
   font-weight: 600;
   text-shadow: 1px 1px 1px rgba(0,0,0,.4);
   text-align: center;
@@ -49,7 +46,7 @@ input[type="number"] {
 }
 
 .button:active {
-  box-shadow: 0 4px #666;
+  box-shadow: 0 0px #666;
   transform: translateY(3px);
 }
 
@@ -75,7 +72,7 @@ input[type="number"] {
   height: 38px;
   justify-content: center;
   align-items: center;
-  background: rgb(108, 235, 108);
+  background: rgb(72, 233, 72);
   box-shadow: 3px 5px rgba(0,0,0,0.2);
   border: 1px solid rgba(0,0,0,0.2);
   border-radius: 10px;
@@ -87,7 +84,7 @@ input[type="number"] {
 
 #timer {
   margin: 15px 0;
-  font-size: 18px;
+  font-size: 22px;
 }
 
 .buttonContainer {
@@ -100,6 +97,26 @@ input[type="number"] {
   position: absolute;
   left: 25px;
   top: 5px;
+}
+
+#listOfTimes {
+  position: absolute;
+  right: 25px;
+  top: 5px;
+}
+
+#listContainer {
+  border: 1px solid #4eb5e5;
+  background: #4eb5e5;
+  width: 355px;
+  padding: 10px 10px 10px 30px;
+  max-height: 214px;
+  overflow-y: auto
+}
+
+#listContainer li {
+  text-align: left;
+  font-size: 18px;
 }
 
 #minMaxSizeWarning {

@@ -11,29 +11,35 @@
   <body onload="onLoad();">
     <h1 class="titles">Maze Game</h1>
     <div class="buttonContainer">
-      <input id="startButton" type="button" class="button" value="Start" />
-      <input id="resetButton" type="button" class="button" value="Reset" />
+      <input id="startButton" onclick="onStartButtonClick()" type="button" class="button" value="Start" />
+      <input id="resetButton" onclick="onResetButtonClick()" type="button" class="button" value="Reset" />
     </div>
-    <div class="completeBanner" id="timerLabel">
+    <div class="completeBanner" id="completeBanner">
       <span id="completeBannerLabel"></span>
     </div>
     <div id="timer">0 Seconds</div>
     <canvas id="canvas"></canvas>
     <div id="settings">
       <table>
-        <h2 class="titles">Maze Size</h2>
+        <h2 class="titles">Maze Size:</h2>
         <tbody>
           <tr>
             <td><label for="mazeSize">Size:</label></td>
-            <td><input id="mazeSize" type="number" size="5" value="5" /></td>
+            <td><input id="mazeSize" type="number" size="5" value="20" /></td>
           </tr>
           <tr>
             <td>&nbsp;</td>
-            <td><input id="generate" type="button" class="button" value="Generate" /></td>
+            <td><input id="generate" onclick="onGenerateMazeClick()" type="button" class="button" value="Generate" /></td>
           </tr>
         </tbody>
       </table>
       <div id="minMaxSizeWarning"></div>
+    </div>
+    <div id="listOfTimes">
+      <h2 class="titles">Previous Games:</h2>
+      <ol id="listContainer">
+        <div id="timerListDescription">When you complete a maze, your time will<div>display here.</div></div>
+      </ol>
     </div>
   </body>
 </html>

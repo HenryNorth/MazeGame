@@ -191,13 +191,16 @@ class Maze {
 
   checkIfCompleted = () => {
     if ((playerIcon.column === (this.columns - 1)) && (playerIcon.row === (this.rows - 1))) {
-      clearInterval(startTimer);
-
       this.isGameStarted = false;
 
-      document.getElementById("completeBannerLabel").innerHTML = "You have completed the maze in " + this.totalSeconds + " Seconds";
-      document.getElementById("timerLabel").style.display = "flex";
+      clearInterval(startTimer);
+
+      totalSecondsString = formatTimeToString();
+      document.getElementById("completeBannerLabel").innerHTML = "You have completed the maze in " + totalSecondsString;
+      document.getElementById("completeBanner").style.display = "flex";
       document.getElementById("timer").style.display = "none";
+
+      saveTimeToList(mazeSize, totalSecondsString);
     }
     else {
       return false;
@@ -250,14 +253,30 @@ onResetButtonClick = () => {
   document.getElementById("timer").innerHTML = maze.totalSeconds + " Seconds";
   document.getElementById("startButton").disabled = false;
   document.getElementById("resetButton").disabled = true;
-  document.getElementById("timerLabel").style.display = "none";
+  document.getElementById("completeBanner").style.display = "none";
   document.getElementById("timer").style.display = "block";
 }
 
 startTimerCount = () => {
   maze.totalSeconds++;
 
-  document.getElementById("timer").innerHTML = maze.totalSeconds + " Seconds";
+  totalSecondsString = formatTimeToString();
+  document.getElementById("timer").innerHTML = totalSecondsString;
+}
+
+formatTimeToString = () => {
+  if (maze.totalSeconds === 1) {
+    return maze.totalSeconds + " Second";
+  } else {
+    return maze.totalSeconds + " Seconds";
+  }
+}
+
+saveTimeToList = (mazeSize, totalSecondsString) => {
+  listItem = document.createElement("LI");
+  listItem.innerHTML = "Maze size: " + mazeSize + " - Time taken: " + totalSecondsString;
+  document.getElementById("listContainer").appendChild(listItem);
+  document.getElementById("timerListDescription").style.display = "none";
 }
 
 onKeyDown = (event) => {
@@ -305,9 +324,7 @@ onLoad = () => {
   maze = new Maze(20, 20, 25);
 
   document.addEventListener("keydown", onKeyDown);
-  document.getElementById("generate").addEventListener("click", onGenerateMazeClick);
-  document.getElementById("startButton").addEventListener("click", onStartButtonClick);
-  document.getElementById("resetButton").addEventListener("click", onResetButtonClick);
   document.getElementById("resetButton").disabled = true;
-  document.getElementById("timerLabel").style.display = "none";
+  document.getElementById("completeBanner").style.display = "none";
+  document.getElementById("timerListDescription").style.display = "block";
 }
