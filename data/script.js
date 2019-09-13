@@ -141,10 +141,10 @@ class Maze {
 
   hasUntouchedNeighbor(mazeCell) {
     return (
-        (mazeCell.column !== 0 && !this.cells[mazeCell.column - 1][mazeCell.row].visited) ||
+        (mazeCell.column !== 0 &&                  !this.cells[mazeCell.column - 1][mazeCell.row].visited) ||
         (mazeCell.column !== (this.columns - 1) && !this.cells[mazeCell.column + 1][mazeCell.row].visited) ||
-        (mazeCell.row !== 0 && !this.cells[mazeCell.column][mazeCell.row - 1].visited) ||
-        (mazeCell.row !== (this.rows - 1) && !this.cells[mazeCell.column][mazeCell.row + 1].visited)
+        (mazeCell.row    !== 0 &&                  !this.cells[mazeCell.column][mazeCell.row - 1].visited) ||
+        (mazeCell.row    !== (this.rows - 1) &&    !this.cells[mazeCell.column][mazeCell.row + 1].visited)
       );
   }
 
@@ -217,19 +217,20 @@ playerIconToStart = () => {
 }
 
 onGenerateMazeClick = () => {
-  mazeSize = document.getElementById("mazeSize").value;
+  mazeSizeValue = document.getElementById("mazeSize").value;
 
   minMaxSizeWarning = document.getElementById("minMaxSizeWarning");
 
-  if (mazeSize > 30) {
+  if (mazeSizeValue > 30) {
     minMaxSizeWarning.innerHTML = "Maximium maze size is 30";
   }
-  else if (mazeSize < 5) {
+  else if (mazeSizeValue < 5) {
     minMaxSizeWarning.innerHTML = "Minimium maze size is 5";
   }
   else {
-    maze.columns = mazeSize;
-    maze.rows = mazeSize;
+    mazeSize = mazeSizeValue;
+    maze.columns = mazeSizeValue;
+    maze.rows = mazeSizeValue;
     minMaxSizeWarning.innerHTML = "";
     maze.generateMaze();
     onResetButtonClick();
