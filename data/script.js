@@ -45,6 +45,10 @@ class Maze {
     this.generateMaze()
   }
 
+  /**
+  * @desc generates the parameters required for the redraw function to render the maze
+  * @return multiple parameters to be used in the redraw function
+  */
   generateMaze() {
     mazeHeight = this.rows * this.cellSize;
     mazeWidth = this.columns * this.cellSize;
@@ -128,6 +132,11 @@ class Maze {
     this.redraw();
   }
 
+  /**
+  * @desc checks which cells have .visted = true
+  * @param array cells - the list of cells and their column:row positions
+  * @return bool - returns true if cell is untouched and false if not untouched. Used in the generateMaze function
+  */
   hasUntouched() {
     for (let column = 0; column < this.columns; column++) {
       for (let row = 0; row < this.rows; row++) {
@@ -139,15 +148,24 @@ class Maze {
     return false;
   }
 
+  /**
+  * @desc check if a maze cell has an untouched neighbor
+  * @param object mazeCell
+  * @return bool - true if mazeCell has untouched neighbor, false if not
+  */
   hasUntouchedNeighbor(mazeCell) {
     return (
-        (mazeCell.column !== 0 &&                  !this.cells[mazeCell.column - 1][mazeCell.row].visited) ||
+        (mazeCell.column !== 0                  && !this.cells[mazeCell.column - 1][mazeCell.row].visited) ||
         (mazeCell.column !== (this.columns - 1) && !this.cells[mazeCell.column + 1][mazeCell.row].visited) ||
-        (mazeCell.row    !== 0 &&                  !this.cells[mazeCell.column][mazeCell.row - 1].visited) ||
-        (mazeCell.row    !== (this.rows - 1) &&    !this.cells[mazeCell.column][mazeCell.row + 1].visited)
+        (mazeCell.row    !== 0                  && !this.cells[mazeCell.column][mazeCell.row - 1].visited) ||
+        (mazeCell.row    !== (this.rows - 1)    && !this.cells[mazeCell.column][mazeCell.row + 1].visited)
       );
   }
 
+  /**
+  * @desc function to draw the maze to the HTML canvas element
+  * @return context object attributes to be used to render the canvas
+  */
   redraw() {
     context.fillStyle = this.backgroundColor;
     context.fillRect(0, 0, mazeHeight, mazeWidth);
@@ -190,17 +208,23 @@ class Maze {
     context.fillRect((playerIcon.column * this.cellSize) + 2, (playerIcon.row * this.cellSize) + 2, this.cellSize - 4, this.cellSize - 4);
   }
 
+  /**
+  * @desc function to check if playerIcon is positioned on the end of maze cell
+  */
   checkIfCompleted = () => {
     if ((playerIcon.column === (this.columns - 1)) && (playerIcon.row === (this.rows - 1))) {
       this.isGameStarted = false;
 
+      // Stops the timer from counting up
       clearInterval(startTimer);
 
       totalSecondsString = formatTimeToString();
+      // Displays a banner to tell the user they have completed the maze
       document.getElementById("completeBannerLabel").innerHTML = "You have completed the maze in " + totalSecondsString;
       document.getElementById("completeBanner").style.display = "flex";
       document.getElementById("timer").style.display = "none";
 
+      // Displays the results from the game to the list
       saveTimeToList(mazeSize, totalSecondsString);
     }
     else {
@@ -209,14 +233,24 @@ class Maze {
   }
 }
 
+/**
+* @desc reuseable function to set playerIcon back to the default starting position
+* @return bool values for playerIcon.column and playerIcon.row to be used in the redraw function
+*/
 playerIconToStart = () => {
   playerIcon.column = 0;
   playerIcon.row = 0;
 
+  // Redraws the maze using the newly assign positions for the playerIcon
   maze.redraw();
 }
 
+/**
+* @desc function to check if input is within the intended range
+* @return parameters for the Maze class to be used in the generateMaze function
+*/
 onGenerateMazeClick = () => {
+  // Gets the value from the mazeSize HTML input field
   mazeSizeValue = document.getElementById("mazeSize").value;
 
   minMaxSizeWarning = document.getElementById("minMaxSizeWarning");
@@ -237,6 +271,10 @@ onGenerateMazeClick = () => {
   }
 }
 
+/**
+* @desc function to start the maze game and timer
+* @return bool maze.isGameStarted - as true
+*/
 onStartButtonClick = () => {
   maze.isGameStarted = true;
 
@@ -245,6 +283,9 @@ onStartButtonClick = () => {
   document.getElementById("resetButton").disabled = false;
 }
 
+/**
+* @desc function to reset the maze, timer and playerIcon
+*/
 onResetButtonClick = () => {
   maze.isGameStarted = false;
   maze.totalSeconds = 0;
@@ -259,6 +300,10 @@ onResetButtonClick = () => {
   document.getElementById("timer").style.display = "block";
 }
 
+/**
+* @desc function to calculate and display the count-up timer
+* @return string - displays the number of seconds on the timer to the user
+*/
 startTimerCount = () => {
   maze.totalSeconds++;
 
@@ -266,6 +311,10 @@ startTimerCount = () => {
   document.getElementById("timer").innerHTML = totalSecondsString;
 }
 
+/**
+* @desc function to correctly format the number of seconds with the singular or plural word
+* @return string - "1 Second" if the totalSeconds is 1 or the number of secodnds + "seconds" if not 1
+*/
 formatTimeToString = () => {
   if (maze.totalSeconds === 1) {
     return maze.totalSeconds + " Second";
@@ -274,6 +323,11 @@ formatTimeToString = () => {
   }
 }
 
+/**
+* @desc function to save the string of results from the maze game the user just finished to the previous games list
+* @param integer mazeSize, string totalSecondsString - the messages to be displayed
+* @return string - displays the listItem to the list of previous games
+*/
 saveTimeToList = (mazeSize, totalSecondsString) => {
   listItem = document.createElement("LI");
   listItem.innerHTML = "Maze size: " + mazeSize + " - Time taken: " + totalSecondsString;
@@ -281,44 +335,49 @@ saveTimeToList = (mazeSize, totalSecondsString) => {
   document.getElementById("timerListDescription").style.display = "none";
 }
 
+/**
+* @desc function that moves the playerIcon up/down/left/right depending on which key is pressed
+* @param event keyDown - when keyboard input is detected
+* @return integer playerIcon.row or playerIcon.column - used to re-render the playerIcon in the redraw function
+*/
 onKeyDown = (event) => {
   if (maze.isGameStarted === true) {
     switch (event.keyCode) {
       case 37:
         if (!maze.cells[playerIcon.column][playerIcon.row].leftWall) {
           playerIcon.column = playerIcon.column - 1;
-          maze.checkIfCompleted();
         }
         break;
       case 39:
         if (!maze.cells[playerIcon.column][playerIcon.row].rightWall) {
           playerIcon.column = playerIcon.column + 1;
-          maze.checkIfCompleted();
         }
         break;
       case 38:
         if (!maze.cells[playerIcon.column][playerIcon.row].topWall) {
           playerIcon.row = playerIcon.row - 1;
-          maze.checkIfCompleted();
         }
         break;
       case 40:
         if (!maze.cells[playerIcon.column][playerIcon.row].bottomWall) {
           playerIcon.row = playerIcon.row + 1;
-          maze.checkIfCompleted();
         }
         break;
       default:
         break;
     }
     maze.redraw();
+    maze.checkIfCompleted();
   }
   else if (maze.isGameStarted === false) {
     return false;
   }
 }
 
-// onLoad function to generate the inital maze and set initial values
+/**
+* @desc function to generate the inital maze and set initial values
+* @return object PlayerIcon, object Maze - classes
+*/
 onLoad = () => {
   canvas = document.getElementById("canvas");
   context = canvas.getContext("2d");
